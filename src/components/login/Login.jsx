@@ -1,49 +1,47 @@
-import React, { useState } from "react";
-import { Alert, Button, Form } from "react-bootstrap";
-import "./styles.css";
+import React, { useState } from 'react';
+import { Alert, Button, Form } from 'react-bootstrap';
+import './styles.css';
 
 const initialState = {
-  username: "",
-  password: ""
+  username: '',
+  password: '',
 };
 
 export const validatePassword = (password) => {
-  // TODO
-  return false;
+  return /^\d{6}$/.test(password);
 };
 
 const Login = () => {
   const [state, setState] = useState(initialState);
-  const [successMsg, setSuccessMsg] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setState((prevState) => {
       return {
         ...prevState,
-        [name]: value
+        [name]: value,
       };
     });
   };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    setErrorMsg("");
-    setSuccessMsg("");
+    setErrorMsg('');
+    setSuccessMsg('');
     const allFieldsEntered = Object.keys(state).every(
-      (key) => state[key].trim() !== ""
+      (key) => state[key].trim() !== ''
     );
 
     if (allFieldsEntered) {
-
-      if (validatePassword(state["password"])) {
-        setSuccessMsg("You have successfully logged in");
+      if (validatePassword(state['password'])) {
+        setSuccessMsg('You have successfully logged in');
       } else {
-        setErrorMsg("Your password must have 6 numerical characters.");
+        setErrorMsg('Your password must have 6 numerical characters.');
       }
     } else {
-      setErrorMsg("All the fields are required.");
+      setErrorMsg('All the fields are required.');
     }
   };
 
